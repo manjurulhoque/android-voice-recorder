@@ -17,7 +17,7 @@ import java.util.List;
 public class VoiceRecyclerViewAdapter extends RecyclerView.Adapter<VoiceRecyclerViewAdapter.VoiceViewHolder> {
 
     public interface OnItemClickListener {
-        void onItemClick(Record record);
+        void onItemClick(Record record, int position);
     }
 
     private List<Record> records;
@@ -39,7 +39,7 @@ public class VoiceRecyclerViewAdapter extends RecyclerView.Adapter<VoiceRecycler
 
     @Override
     public void onBindViewHolder(@NonNull final VoiceViewHolder holder, final int position) {
-        holder.bind(records.get(position), listener);
+        holder.bind(records.get(position), listener, position);
 //        holder.mCard.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -71,13 +71,13 @@ public class VoiceRecyclerViewAdapter extends RecyclerView.Adapter<VoiceRecycler
             mCard = itemView.findViewById(R.id.mCard);
         }
 
-        public void bind(final Record record, final VoiceRecyclerViewAdapter.OnItemClickListener listener) {
+        public void bind(final Record record, final VoiceRecyclerViewAdapter.OnItemClickListener listener, final int position) {
             textViewRecordName.setText(record.getName());
             textViewTime.setText(record.getMinute());
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(record);
+                    listener.onItemClick(record, position);
                 }
             });
         }
